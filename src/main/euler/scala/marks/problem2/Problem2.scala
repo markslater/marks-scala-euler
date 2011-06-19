@@ -12,7 +12,7 @@ object Problem2 {
 
   def fibonacci(): Stream[Int] = {
     def fibonacci(i: Int, j: Int): Stream[Int] = {
-      Stream.cons(i, fibonacci(j, i+j))
+      Stream.cons(i, fibonacci(j, i + j))
     }
     fibonacci(1, 2);
   }
