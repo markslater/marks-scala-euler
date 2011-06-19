@@ -1,0 +1,16 @@
+<component name="libraryTable">
+  <library name="scala-library-2.9.0.1">
+    <CLASSES>
+      <root url="file:///usr/local/scala/lib" />
+      <root url="file:///usr/local/scala/lib" />
+      <root url="file://$PROJECT_DIR$/lib/test-unit" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/lib/test-unit/src" />
+    </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/lib/test-unit" recursive="false" />
+    <jarDirectory url="file:///usr/local/scala/lib" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/lib/test-unit/src" recursive="false" type="SOURCES" />
+  </library>
+</component>
