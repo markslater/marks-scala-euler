@@ -19,15 +19,12 @@ object Problem4 {
       Math.log10(candidate) >= 2.0 && Math.log10(candidate) < 3.0;
     }
 
-    def factors(number: Int): List[Int] = {
-      def factors(number: Int, currentCandidate: Int): List[Int] = {
+      def factors(number: Int, currentCandidate: Int = 1): List[Int] = {
         if ((currentCandidate * currentCandidate) > number) List.empty[Int];
         else if (number % currentCandidate == 0) number / currentCandidate :: ((currentCandidate) :: factors(number, currentCandidate + 1));
         else factors(number, currentCandidate + 1);
       }
-      factors(number, 1);
-    }
-    
+
   }
 
 }
