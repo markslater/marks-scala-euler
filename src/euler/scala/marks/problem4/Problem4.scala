@@ -11,19 +11,19 @@ object Problem4 {
       candidatePalindromeString.substring(0, length).equals(candidatePalindromeString.substring(candidatePalindromeString.length() - length).reverse)
     }
 
-    def hasTwoThreeDigitFactors(candidate: Int) :Boolean = {
-      factors(candidate).filter(isThreeDigit).exists((x :Int) => isThreeDigit((candidate / x ).intValue()))
+    def hasTwoThreeDigitFactors(candidate: Int): Boolean = {
+      factors(candidate).filter(isThreeDigit).exists((x: Int) => isThreeDigit((candidate / x).intValue()))
     }
 
-    def isThreeDigit(candidate: Int) :Boolean = {
+    def isThreeDigit(candidate: Int): Boolean = {
       Math.log10(candidate) >= 2.0 && Math.log10(candidate) < 3.0;
     }
 
-      def factors(number: Int, currentCandidate: Int = 1): List[Int] = {
-        if ((currentCandidate * currentCandidate) > number) List.empty[Int];
-        else if (number % currentCandidate == 0) number / currentCandidate :: ((currentCandidate) :: factors(number, currentCandidate + 1));
-        else factors(number, currentCandidate + 1);
-      }
+    def factors(number: Int, currentCandidate: Int = 1): List[Int] = {
+      if ((currentCandidate * currentCandidate) > number) List.empty[Int];
+      else if (number % currentCandidate == 0) number / currentCandidate :: ((currentCandidate) :: factors(number, currentCandidate + 1));
+      else factors(number, currentCandidate + 1);
+    }
 
   }
 
