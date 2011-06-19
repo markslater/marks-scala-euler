@@ -13,13 +13,9 @@ object Problem3 {
     ).max);
   }
 
-  def factors(number: Long): List[Long] = {
-    def factors(number: Long, currentCandidate: Long): List[Long] = {
-      if ((currentCandidate * currentCandidate) > number) List.empty[Long];
-      else if (number % currentCandidate == 0) number / currentCandidate :: ((currentCandidate) :: factors(number, currentCandidate + 1));
-      else factors(number, currentCandidate + 1);
-    }
-    factors(number, 1);
+  def factors(number: Long, currentCandidate: Long = 1): List[Long] = {
+    if ((currentCandidate * currentCandidate) > number) List.empty[Long];
+    else if (number % currentCandidate == 0) number / currentCandidate :: ((currentCandidate) :: factors(number, currentCandidate + 1));
+    else factors(number, currentCandidate + 1);
   }
-
 }
