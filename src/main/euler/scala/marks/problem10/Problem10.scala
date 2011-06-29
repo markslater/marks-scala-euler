@@ -1,19 +1,20 @@
 package euler.scala.marks.problem10
 
-import collection.immutable.{TreeSet, SortedSet}
+import collection.immutable.{HashSet, TreeSet, SortedSet}
 
 object Problem10 {
 
   def main(args: Array[String]) {
-    println(sieve(new TreeSet[Int]().++(2 to 2000000)).reduceLeft(_ + _))
+    println(sieve(new TreeSet[Int]().++(2 to 2000)))
+    //    println(sieve(new TreeSet[Int]().++(2 to 20000)).reduceLeft(_ + _))
+    //    println(sieve(new TreeSet[Int]().++(2 to 2000000)).reduceLeft(_ + _))
   }
 
   def sieve(candidatePrimes: SortedSet[Int]): Set[Int] = {
-    if (nextPrime == candidatePrimes.max) {
-      candidatePrimes
+    if (candidatePrimes.isEmpty) {
+      new HashSet[Int]()
     } else {
-      var newCandidates: SortedSet[Int] = candidatePrimes.filterNot((x: Int) => x > nextPrime && x % nextPrime == 0)
-      sieve(newCandidates, newCandidates.from(nextPrime).tail.head)
+      sieve(candidatePrimes.filterNot(_ % candidatePrimes.head == 0)) + candidatePrimes.head
     }
   }
 }
