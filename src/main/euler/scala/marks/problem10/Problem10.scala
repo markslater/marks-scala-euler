@@ -12,15 +12,23 @@ object Problem10 {
     //    println(sieve(200000).reduceLeft(_ + _))
   }
 
+  //  def sieved(maxPrime: Int): Iterable[Int] = {
+  //    for (i <- 1 to maxPrime by 2) {
+  //
+  //    }
+  //  }
+
   def sieve(maxPrime: Int): Stream[Int] = {
     def sieve(candidatePrimes: Iterable[Int]): Stream[Int] = {
-      if (candidatePrimes.isEmpty) {
-        Stream.empty;
-      } else {
-        val nextPrime: Int = candidatePrimes.head
-        val remainingCandidates: Iterable[Int] = candidatePrimes.filter(_ % nextPrime != 0)
-        Stream.cons(nextPrime, sieve(remainingCandidates));
-      }
+      val nextPrime: Int = candidatePrimes.head
+      val remainingCandidates: Iterable[Int] = candidatePrimes.filter(_ % nextPrime != 0)
+      Stream.cons(
+        nextPrime,
+        if (remainingCandidates.isEmpty)
+          Stream.empty
+        else
+          sieve(remainingCandidates)
+      );
     }
     Stream.cons(2, sieve(3 to maxPrime by 2));
   }
