@@ -5,18 +5,20 @@ import collection.Iterable
 object Problem10 {
 
   def main(args: Array[String]) {
-    val primes: Iterable[Int] = sieveRecursive(2000)
-    for (prime <- primes) {
-      println(prime)
-    }
-    //    println(sieve(200000).reduceLeft(_ + _))
+    println(sieveIterative(10).reduceLeft(_ + _))
   }
 
-  //  def sieved(maxPrime: Int): Iterable[Int] = {
-  //    for (i <- 1 to maxPrime by 2) {
-  //
-  //    }
-  //  }
+  def sieveIterative(maxPrime: Int): Iterable[Int] = {
+    var result = List(2)
+    var candidates: Iterable[Int] = 3 to maxPrime by 2
+    for (i <- 3 to maxPrime by 2) {
+      if (!candidates.isEmpty && i == candidates.head) {
+        result = candidates.head :: result
+        candidates = candidates.filter(_ % i != 0)
+      }
+    }
+    result;
+  }
 
   def sieveRecursive(maxPrime: Int): Iterable[Int] = {
     def sieve(candidatePrimes: Iterable[Int]): List[Int] = {
