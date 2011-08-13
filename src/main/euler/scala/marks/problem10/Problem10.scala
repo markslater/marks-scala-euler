@@ -5,11 +5,11 @@ import collection.Iterable
 object Problem10 {
 
   def main(args: Array[String]) {
-    //    val primes: Stream[Int] = sieve(200000)
-    //    for (prime <- primes) {
-    //      println(prime)
-    //    }
-    println(sieve(200000).reduceLeft(_ + _))
+    val primes: Stream[Int] = sieve(200000)
+    for (prime <- primes) {
+      println(prime)
+    }
+    //    println(sieve(200000).reduceLeft(_ + _))
   }
 
   def sieve(maxPrime: Int): Stream[Int] = {
