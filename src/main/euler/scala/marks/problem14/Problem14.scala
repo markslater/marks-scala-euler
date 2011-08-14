@@ -1,26 +1,30 @@
 package euler.scala.marks.problem14
 
 import java.lang.Boolean
-import collection.mutable.Map
 
 object Problem14 {
   def main(args: Array[String]) {
-    println(moreTerms((1 to 100000).toSet))
+    println(longestSequence((1 to 100000).toSet))
   }
 
-  def moreTerms(candidates: Set[Int], numberOfTerms: Int = 1, previousTerms: Map[Int, Int] = Map(1 -> 1)): Int = {
-    val newCandidates: Set[Int] = candidates.filter(hasTerm(_, numberOfTerms, previousTerms))
-    for (candidate <- newCandidates) {
-      previousTerms.put(candidate, numberOfTerms)
+  def longestSequence(currentTerms: Set[Int]): List[Int] = {
+    def longestSequence(currentTerms: Set[List[Int]]): List[Int] = {
+      val unfinishedSequences: Set[List[Int]] = currentTerms.filter(_.head != 1)
+      val expandedSequences: Set[List[Int]] = unfinishedSequences.map(x => nextTerm(x.head) :: x)
+      val newTerms: Set[Int] = expandedSequences.map(_.head)
+      val sequencesThatHaveNotBeenOvertaken: Set[List[Int]] = expandedSequences.filter(!intersects(newTerms, _))
+      if (sequencesThatHaveNotBeenOvertaken.size == 1) sequencesThatHaveNotBeenOvertaken.head
+      else longestSequence(sequencesThatHaveNotBeenOvertaken)
     }
-    if (newCandidates.size == 1) newCandidates.head
-    else moreTerms(newCandidates, numberOfTerms + 1)
+    longestSequence(currentTerms.map(List(_)))
   }
 
-  def hasTerm(firstTerm: Int, termNumber: Int, previousTerms: Map[Int, Int]): Boolean = {
-    if (termNumber == 1) true
-    else if (firstTerm == 1) false
-    else if (previousTerms.contains(firstTerm) && previousTerms.get(firstTerm).get >= termNumber) true
-    else hasTerm(if ((firstTerm % 2 == 0)) firstTerm / 2 else (firstTerm * 3) + 1, termNumber - 1, previousTerms)
+  def intersects(a: Set[Int], b: List[Int]): Boolean = {
+    a.intersect(b.tail.toSet).size > 0
   }
+
+  def nextTerm(currentTerm: Int): Int = {
+    if ((currentTerm % 2 == 0)) currentTerm / 2 else (currentTerm * 3) + 1
+  }
+
 }
