@@ -1,22 +1,20 @@
 package euler.scala.marks.problem14
 
-import collection.mutable.Map
+import java.lang.Boolean
 
 object Problem14 {
   def main(args: Array[String]) {
-    val map: Map[Int, Int] = Map(1 -> 1)
-    println((1 to 1000000).maxBy(theSequence(_, map)));
+    println(moreTerms((1 to 1000000).toSet).dropWhile(_.size > 1).head)
   }
 
-  def cachingSequence(startingPoint: Int, previousSolutions: Map[Int, Int], lengthSoFar: Int = 0): Int = {
-    val result: Int = theSequence(startingPoint, previousSolutions)
-    previousSolutions.put(startingPoint, result)
-    result;
+  def moreTerms(candidates: Set[Int], numberOfTerms: Int = 1): Stream[Set[Int]] = {
+    val newCandidates: Set[Int] = candidates.filter(hasTerm(_, numberOfTerms))
+    Stream.cons(newCandidates, if (newCandidates.isEmpty) Stream.empty else moreTerms(newCandidates, numberOfTerms + 1))
   }
 
-  def theSequence(startingPoint: Int, previousSolutions: Map[Int, Int], lengthSoFar: Int = 0): Int = {
-    if (previousSolutions.contains(startingPoint)) lengthSoFar + previousSolutions.get(startingPoint).get
-    else if (startingPoint == 1) 1 + lengthSoFar
-    else theSequence(if ((startingPoint % 2 == 0)) startingPoint / 2 else (startingPoint * 3) + 1, previousSolutions, lengthSoFar + 1)
+  def hasTerm(firstTerm: Int, termNumber: Int): Boolean = {
+    if (termNumber == 1) true
+    else if (firstTerm == 1) false
+    else hasTerm(if ((firstTerm % 2 == 0)) firstTerm / 2 else (firstTerm * 3) + 1, termNumber - 1)
   }
 }
